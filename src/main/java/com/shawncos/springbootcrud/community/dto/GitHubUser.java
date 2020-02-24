@@ -1,4 +1,4 @@
-package com.shawncos.sringbootcrud.community.dto;
+package com.shawncos.springbootcrud.community.dto;
 
 public class GitHubUser{
 

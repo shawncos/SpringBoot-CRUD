@@ -1,0 +1,14 @@
+
+body{
+    background-color: #e6d2d5;
+}
+
+.main{
+    margin: 30px;
+    background-color: white;
+    border-radius: 4px;
+}
+
+.icon-top{
+    margin-top:10px ;
+}

@@ -1,7 +1,4 @@
-package com.shawncos.sringbootcrud.community.dto;
-
-import com.sun.xml.internal.bind.v2.model.core.ID;
-import org.springframework.beans.factory.annotation.Required;
+package com.shawncos.springbootcrud.community.dto;
 
 public class AccessTokenDTO {
 

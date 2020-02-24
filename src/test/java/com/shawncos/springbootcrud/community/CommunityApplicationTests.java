@@ -1,4 +1,4 @@
-package com.shawncos.sringbootcrud.community;
+package com.shawncos.springbootcrud.community;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

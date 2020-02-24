@@ -1,9 +1,9 @@
-package com.shawncos.sringbootcrud.community.provider;
+package com.shawncos.springbootcrud.community.provider;
 
 
 import com.alibaba.fastjson.JSON;
-import com.shawncos.sringbootcrud.community.dto.AccessTokenDTO;
-import com.shawncos.sringbootcrud.community.dto.GitHubUser;
+import com.shawncos.springbootcrud.community.dto.AccessTokenDTO;
+import com.shawncos.springbootcrud.community.dto.GitHubUser;
 
 import okhttp3.*;
 import org.springframework.stereotype.Component;
