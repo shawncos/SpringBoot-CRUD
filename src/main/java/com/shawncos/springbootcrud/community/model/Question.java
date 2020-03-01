@@ -1,7 +1,9 @@
 package com.shawncos.springbootcrud.community.model;
 
-import org.apache.ibatis.type.Alias;
+import lombok.Data;
 
+
+@Data
 public class Question {
 
     private  int id;
@@ -23,76 +25,5 @@ public class Question {
 
     private String tag;
 
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public long getGmtCreate() {
-        return gmtCreate;
-    }
-
-    public void setGmtCreate(long gmtCreate) {
-        this.gmtCreate = gmtCreate;
-    }
-
-
-    public long getGmtModified() {
-        return gmtModified;
-    }
-
-    public void setGmtModified(long gmtModified) {
-        this.gmtModified = gmtModified;
-    }
-
-    public int getCreator() {
-        return creator;
-    }
-
-    public void setCreator(int creator) {
-        this.creator = creator;
-    }
-
-    public int getCommentCount() {
-        return commentCount;
-    }
-
-    public void setCommentCount(int commentCount) {
-        this.commentCount = commentCount;
-    }
-
-    public int getLikeCount() {
-        return likeCount;
-    }
-
-    public void setLikeCount(int likeCount) {
-        this.likeCount = likeCount;
-    }
-
-    public String getTag() {
-        return tag;
-    }
-
-    public void setTag(String tag) {
-        this.tag = tag;
-    }
 }

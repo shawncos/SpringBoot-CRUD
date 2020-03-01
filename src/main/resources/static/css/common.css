@@ -12,3 +12,9 @@ body{
 .icon-top{
     margin-top:10px ;
 }
+
+.text{
+    font-size: 12px;
+    font-weight: normal;
+    color: #999;
+}

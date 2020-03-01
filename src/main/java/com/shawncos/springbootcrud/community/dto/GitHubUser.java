@@ -1,5 +1,9 @@
 package com.shawncos.springbootcrud.community.dto;
 
+
+import lombok.Data;
+
+@Data
 public class GitHubUser{
 
     private String name;
@@ -8,27 +12,6 @@ public class GitHubUser{
     private String bio;
 
 
-    public String getName() {
-        return name;
-    }
+    private String avatarUrl;
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getBio() {
-        return bio;
-    }
-
-    public void setBio(String bio) {
-        this.bio = bio;
-    }
 }

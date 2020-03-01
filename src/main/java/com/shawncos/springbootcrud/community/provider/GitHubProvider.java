@@ -26,6 +26,7 @@ public class GitHubProvider {
                 .build();
         try (Response response = client.newCall(request).execute()) {
             String s= response.body().string();
+            System.out.println(s);
             return s.split("&")[0].split("=")[1];
         } catch (IOException e) {
             e.printStackTrace();
@@ -35,6 +36,7 @@ public class GitHubProvider {
 
     public GitHubUser getUser(String accessToken){
         String url="https://api.github.com/user?access_token="+accessToken;
+        System.out.println(url);
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
                 .url(url)
