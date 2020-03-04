@@ -38,9 +38,8 @@ public class AuthorizeController {
 
     @GetMapping("/callback")
     public String callback(@RequestParam("code")String code, @RequestParam("state")String state, HttpServletRequest request, HttpServletResponse response){
-
         AccessTokenDTO accessTokenDTO = new AccessTokenDTO();
-        accessTokenDTO.setClient_id(client_secret);
+        accessTokenDTO.setClient_id(client_id);
         accessTokenDTO.setClient_secret(client_secret);
         accessTokenDTO.setCode(code);
         accessTokenDTO.setRedirect_uri(redirect_uri);
@@ -48,18 +47,23 @@ public class AuthorizeController {
         String accessToken = gitHubProvider.getAccessToken(accessTokenDTO);
         GitHubUser gitHubUser=gitHubProvider.getUser(accessToken);
         if(gitHubUser!=null){
+            User user=userMapper.getUserByAccountId(gitHubUser.getId());
+            if(user!=null){
+                Cookie cookie=new Cookie("token",user.getToken());
+                response.addCookie(cookie);
+            }else{
+                user=new User();
+                user.setAccountId(String.valueOf(gitHubUser.getId()));
+                user.setName(gitHubUser.getName());
+                user.setToken(UUID.randomUUID().toString());
+                user.setGmtCreate(System.currentTimeMillis());
+                user.setGmtModified(user.getGmtCreate());
+                user.setAvatarUrl(gitHubUser.getAvatarUrl());
+                userMapper.insertUser(user);
+                Cookie cookie=new Cookie("token",user.getToken());
+                response.addCookie(cookie);
+            }
 
-            User user=new User();
-            user.setAccountId(String.valueOf(gitHubUser.getId()));
-            user.setName(gitHubUser.getName());
-            user.setToken(UUID.randomUUID().toString());
-            user.setGmtCreate(System.currentTimeMillis());
-            user.setGmtModified(user.getGmtCreate());
-            user.setAvatarUrl(gitHubUser.getAvatarUrl());
-            userMapper.insertUser(user);
-            Cookie cookie=new Cookie("token",user.getToken());
-            cookie.setHttpOnly(true);
-            response.addCookie(cookie);
             return "redirect:/";
         }
         return "index";

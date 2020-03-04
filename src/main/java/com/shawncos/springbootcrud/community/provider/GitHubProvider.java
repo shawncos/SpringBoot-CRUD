@@ -7,6 +7,7 @@ import com.shawncos.springbootcrud.community.dto.GitHubUser;
 
 import okhttp3.*;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 
@@ -14,36 +15,34 @@ import java.io.IOException;
 public class GitHubProvider {
 
     public String getAccessToken(AccessTokenDTO accessTokenDto) {
-
-        final MediaType mediaType
-                = MediaType.get("application/json; charset=utf-8");
-
-        OkHttpClient client = new OkHttpClient();
-        RequestBody body = RequestBody.create(JSON.toJSONString(accessTokenDto), mediaType);
+        String content = "client_id=" + accessTokenDto.getClient_id() + "&client_secret=" + accessTokenDto.getClient_secret() + "&code=" + accessTokenDto.getCode();
+        OkHttpClient client = new OkHttpClient().newBuilder()
+                .build();
+        MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
+        RequestBody body = RequestBody.create(mediaType, content);
         Request request = new Request.Builder()
                 .url("https://github.com/login/oauth/access_token")
-                .post(body)
+                .method("POST", body)
+                .addHeader("Content-Type", "application/x-www-form-urlencoded")
                 .build();
-        try (Response response = client.newCall(request).execute()) {
-            String s= response.body().string();
-            System.out.println(s);
-            return s.split("&")[0].split("=")[1];
-        } catch (IOException e) {
+        try {
+            Response response = client.newCall(request).execute();
+            return response.body().string().split("&")[0].split("=")[1];
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return "";
     }
 
-    public GitHubUser getUser(String accessToken){
-        String url="https://api.github.com/user?access_token="+accessToken;
-        System.out.println(url);
+    public GitHubUser getUser(String accessToken) {
+        String url = "https://api.github.com/user?access_token=" + accessToken;
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
                 .url(url)
                 .build();
 
         try (Response response = client.newCall(request).execute()) {
-            return JSON.parseObject(response.body().string(),GitHubUser.class);
+            return JSON.parseObject(response.body().string(), GitHubUser.class);
         } catch (IOException e) {
             e.printStackTrace();
         }

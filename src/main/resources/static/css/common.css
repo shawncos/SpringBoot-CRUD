@@ -1,6 +1,6 @@
 
 body{
-    background-color: #e6d2d5;
+    background: url("/images/bg.jpg") ;
 }
 
 .main{
@@ -17,4 +17,13 @@ body{
     font-size: 12px;
     font-weight: normal;
     color: #999;
+}
+
+.avatar{
+    width: 35px;
+    height: 35px;
+}
+
+.profile-section{
+    margin-top: 15px;
 }

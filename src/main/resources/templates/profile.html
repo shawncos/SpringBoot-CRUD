@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>SpringBoot</title>
+    <title th:text="${sectionname}"></title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -16,9 +16,8 @@
     <div class="row">
         <div class="col-lg-9 col-md-12 col-sm-12  col-xs-12">
             <div class="page-header">
-                <h2><span class="glyphicon  glyphicon-list icon-top" aria-hidden="true"></span>发现</h2>
+                <h1><span th:text="${sectionname}"></span></h1>
             </div>
-
             <div class="media" th:each="question:${pagination.question}">
                 <div class="media-left">
                     <a href="#">
@@ -65,7 +64,12 @@
         </div>
 
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
-            <h2>热门话题</h2>
+            <div class="list-group profile-section">
+                <a href="#" th:class="${section=='questions'}?'active list-group-item': 'list-group-item'">我的问题
+                    <span class="badge">14</span>
+                </a>
+                <a href="#" th:class="${section=='apply'}?'active list-group-item': 'list-group-item'">最新回复</a>
+            </div>
         </div>
     </div>
 </div>

@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
@@ -38,14 +37,7 @@ public class PublishController {
         question.setDescription(description);
         question.setTitle(title);
         question.setTag(tag);
-        User user=null;
-        Cookie[] cookies = request.getCookies();
-        for (Cookie cookie : cookies) {
-            if("token".equals(cookie.getName())){
-                user=userMapper.getUserByToken(cookie.getValue());
-                break;
-            }
-        }
+       User user= (User) request.getSession().getAttribute("user");
         if(user==null){
             model.addAttribute("error","用户未登录");
             return "publish";
