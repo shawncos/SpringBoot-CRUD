@@ -4,10 +4,10 @@ package com.shawncos.springbootcrud.community.dto;
 import lombok.Data;
 
 @Data
-public class GitHubUser{
+public class GitHubUser {
 
     private String name;
-    private Long id;
+    private String id;
 
     private String bio;
 

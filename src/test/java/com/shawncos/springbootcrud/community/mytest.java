@@ -11,7 +11,7 @@ import java.io.IOException;
 public class mytest {
 
     @Test
-    public void test(){
+    public void test() {
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
         MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");

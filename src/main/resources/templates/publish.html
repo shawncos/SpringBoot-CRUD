@@ -5,56 +5,57 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/css/common.css">
     <script src="/js/bootstrap.min.js" type="javascript"></script>
 </head>
 <body>
 <div th:insert="navigation :: nav"></div>
-    <div class="container-fluid main">
-        <div class="row">
-            <div class="col-lg-9 col-md-12 col-sm-12  col-xs-12">
-                <span class="glyphicon glyphicon-plus icon-top" aria-hidden="true">发起</span>
-                <br>
-                <hr>
-                <form action="/publish" method="post">
-                    <div class="form-group">
-                        <label for="title">问题标题（简单扼要）：</label>
-                        <input type="text" name="title" class="form-control" id="title" placeholder="问题标题...">
-                    </div>
-                    <div class="form-group">
-                        <label for="description">问题补充：</label>
-                        <textarea  name="description"  class="form-control" rows="6" id="description" placeholder="问题内容..." ></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="tag">添加标签：</label>
-                        <input type="text" name="tag" class="form-control" id="tag" placeholder="输入标签,已逗号分隔...">
-                    </div>
-                    <span class="alert alert-danger" role="alert" th:if="${error!=null}" th:text="${error}"></span>
-                    <button type="submit" class="btn btn-success">提交</button>
-                </form>
-            </div>
-            <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
-                <div class="list-group">
-                    <a href="/slides/" class="list-group-item">全部</a>
-                    <a href="/slides/category-32" class="list-group-item ">日志</a>
-                    <a href="/slides/category-33" class="list-group-item ">运维</a>
-                    <a href="/slides/category-34" class="list-group-item ">搜索</a>
-                    <a href="/slides/category-35" class="list-group-item ">APM</a>
-                    <a href="/slides/category-36" class="list-group-item ">安全</a>
-                    <a href="/slides/category-37" class="list-group-item ">特性</a>
-                    <a href="/slides/category-38" class="list-group-item ">案例</a>
-                    <a href="/slides/category-39" class="list-group-item ">性能</a>
-                    <a href="/slides/category-40" class="list-group-item ">监控</a>
-                    <a href="/slides/category-41" class="list-group-item ">架构</a>
-                    <a href="/slides/category-46" class="list-group-item ">产品</a>
-                    <a href="/slides/category-48" class="list-group-item ">大数据</a>
-                    <a href="/slides/category-49" class="list-group-item ">数据分析</a>
-                    <a href="/slides/category-50" class="list-group-item ">其他</a>
-
+<div class="container-fluid main">
+    <div class="row">
+        <div class="col-lg-9 col-md-12 col-sm-12  col-xs-12">
+            <span class="glyphicon glyphicon-plus icon-top" aria-hidden="true">发起</span>
+            <br>
+            <hr>
+            <form action="/publish" method="post">
+                <div class="form-group">
+                    <label for="title">问题标题（简单扼要）：</label>
+                    <input type="text" name="title" class="form-control" id="title" placeholder="问题标题...">
                 </div>
+                <div class="form-group">
+                    <label for="description">问题补充：</label>
+                    <textarea name="description" class="form-control" rows="6" id="description"
+                              placeholder="问题内容..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="tag">添加标签：</label>
+                    <input type="text" name="tag" class="form-control" id="tag" placeholder="输入标签,已逗号分隔...">
+                </div>
+                <span class="alert alert-danger" role="alert" th:if="${error!=null}" th:text="${error}"></span>
+                <button type="submit" class="btn btn-success">提交</button>
+            </form>
+        </div>
+        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+            <div class="list-group">
+                <a href="/slides/" class="list-group-item">全部</a>
+                <a href="/slides/category-32" class="list-group-item ">日志</a>
+                <a href="/slides/category-33" class="list-group-item ">运维</a>
+                <a href="/slides/category-34" class="list-group-item ">搜索</a>
+                <a href="/slides/category-35" class="list-group-item ">APM</a>
+                <a href="/slides/category-36" class="list-group-item ">安全</a>
+                <a href="/slides/category-37" class="list-group-item ">特性</a>
+                <a href="/slides/category-38" class="list-group-item ">案例</a>
+                <a href="/slides/category-39" class="list-group-item ">性能</a>
+                <a href="/slides/category-40" class="list-group-item ">监控</a>
+                <a href="/slides/category-41" class="list-group-item ">架构</a>
+                <a href="/slides/category-46" class="list-group-item ">产品</a>
+                <a href="/slides/category-48" class="list-group-item ">大数据</a>
+                <a href="/slides/category-49" class="list-group-item ">数据分析</a>
+                <a href="/slides/category-50" class="list-group-item ">其他</a>
+
             </div>
         </div>
     </div>
+</div>
 </body>
 </html>

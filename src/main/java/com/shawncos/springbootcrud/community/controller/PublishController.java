@@ -22,24 +22,25 @@ public class PublishController {
 
     @Autowired
     private QuestionMapper questionMapper;
+
     @GetMapping("/publish")
-    public String publish(){
+    public String publish() {
         return "publish";
     }
 
 
     @PostMapping("/publish")
-    public String doPublish(@RequestParam("title")String title,
-                            @RequestParam("description")String description,
-                            @RequestParam("tag")String tag, HttpServletRequest request, Model model){
+    public String doPublish(@RequestParam("title") String title,
+                            @RequestParam("description") String description,
+                            @RequestParam("tag") String tag, HttpServletRequest request, Model model) {
 
-        Question question=new Question();
+        Question question = new Question();
         question.setDescription(description);
         question.setTitle(title);
         question.setTag(tag);
-       User user= (User) request.getSession().getAttribute("user");
-        if(user==null){
-            model.addAttribute("error","用户未登录");
+        User user = (User) request.getSession().getAttribute("user");
+        if (user == null) {
+            model.addAttribute("error", "用户未登录");
             return "publish";
         }
         question.setCreator(user.getId());

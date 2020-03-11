@@ -1,6 +1,7 @@
 package com.shawncos.springbootcrud.community.mapper;
 
 
+import com.shawncos.springbootcrud.community.dto.QuestionDTO;
 import com.shawncos.springbootcrud.community.model.Question;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -21,11 +22,14 @@ public interface QuestionMapper {
     List<Question> list(@Param("offset") Integer offset, @Param("size") Integer size);
 
     @Select("select * from question where creator=#{userid} limit #{offset},#{size}")
-    List<Question> myList(@Param("userid") Integer userid,@Param("offset") Integer offset, @Param("size") Integer size);
+    List<Question> myList(@Param("userid") Integer userid, @Param("offset") Integer offset, @Param("size") Integer size);
 
     @Select("select count(*) from question")
     Integer count();
 
     @Select("select count(*) from question where creator=#{userid}")
     Integer myCount(@Param("userid") Integer userid);
+
+    @Select("select * from question where id=#{id}")
+    Question getByID(@Param("id") Integer id);
 }

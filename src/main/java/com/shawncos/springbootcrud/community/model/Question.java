@@ -6,11 +6,10 @@ import lombok.Data;
 @Data
 public class Question {
 
-    private  int id;
+    private int id;
 
     private String title;
     private String description;
-
 
 
     private long gmtCreate;

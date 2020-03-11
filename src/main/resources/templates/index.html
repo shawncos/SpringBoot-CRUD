@@ -19,9 +19,9 @@
                 <h2><span class="glyphicon  glyphicon-list icon-top" aria-hidden="true"></span>发现</h2>
             </div>
 
-            <div class="media" th:each="question:${pagination.question}">
+            <div class="media" th:each="question : ${pagination.question}">
                 <div class="media-left">
-                    <a href="#">
+                    <a href="javascript:void(0)">
                         <img class="media-object img-rounded  avatar" src="https://i.picsum.photos/id/503/30/30.jpg"
                              th:src="${question.user.avatarUrl}" th:if="${not #lists.isEmpty(question.user.avatarUrl)}">
                         <img class="media-object img-rounded avatar" src="https://i.picsum.photos/id/503/30/30.jpg"
@@ -29,7 +29,9 @@
                     </a>
                 </div>
                 <div class="media-body">
-                    <h4 class="media-heading" th:text="${question.title}"></h4>
+                    <h4 class="media-heading">
+                        <a th:href="@{'question/'+${question.id}}" th:text="${question.title}"></a>
+                    </h4>
                     <p th:text="${question.description}"></p>
                     <span class="text" th:text="${question.user.name}"></span>
                 </div>
@@ -42,7 +44,7 @@
                         </a>
                     </li>
                     <li th:if="${pagination.showPrevious}">
-                        <a th:href="@{/(page=${pagination.page - 1})}"aria-label="Previous">
+                        <a th:href="@{/(page=${pagination.page - 1})}" aria-label="Previous">
                             <span aria-hidden="true">&lt;</span>
                         </a>
                     </li>
@@ -50,7 +52,7 @@
                             th:href="@{/(page=${page})}" th:text="${page}"
                     ></a>
                     </li>
-                    <li  th:if="${pagination.showNext}">
+                    <li th:if="${pagination.showNext}">
                         <a th:href="@{/(page=${pagination.page + 1})}" aria-label="Previous">
                             <span aria-hidden="true">&gt;</span>
                         </a>

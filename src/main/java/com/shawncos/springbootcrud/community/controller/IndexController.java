@@ -17,10 +17,11 @@ public class IndexController {
     private QuestionService questionService;
 
     @GetMapping("/")
-    public String index(@RequestParam(value = "page", defaultValue = "1") Integer page, @RequestParam(value = "size", defaultValue = "2") Integer size,  Model model) {
+    public String index(@RequestParam(value = "page", defaultValue = "1") Integer page, @RequestParam(value = "size", defaultValue = "2") Integer size, Model model) {
 
 
         PaginationDTO pagination = questionService.list(page, size);
+        System.out.println(pagination);
         model.addAttribute("pagination", pagination);
 
         return "index";
