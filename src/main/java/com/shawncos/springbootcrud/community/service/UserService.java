@@ -3,10 +3,12 @@ package com.shawncos.springbootcrud.community.service;
 
 import com.shawncos.springbootcrud.community.mapper.UserMapper;
 import com.shawncos.springbootcrud.community.model.User;
+import com.shawncos.springbootcrud.community.model.UserExample;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
-import java.util.Objects;
+import java.util.List;
 
 @Service
 public class UserService {
@@ -15,19 +17,22 @@ public class UserService {
     UserMapper userMapper;
 
     public void createOrUpdate(User user) {
-        User userByAccountId = userMapper.getUserByAccountId(user.getAccountId());
+        UserExample example=new UserExample();
+        example.createCriteria().andAccountidEqualTo(user.getAccountid());
+        List<User> users = userMapper.selectByExample(example);
 
-        if(Objects.isNull(userByAccountId)){
-            user.setGmtCreate(System.currentTimeMillis());
-            user.setGmtModified(System.currentTimeMillis());
-            userMapper.insertUser(user);
+        if(CollectionUtils.isEmpty(users)){
+
+            user.setGmtcreate(System.currentTimeMillis());
+            user.setGmtmodified(System.currentTimeMillis());
+            userMapper.insert(user);
         }else{
-            userByAccountId.setGmtModified(System.currentTimeMillis());
-            userByAccountId.setAvatarUrl(user.getAvatarUrl());
-            userByAccountId.setName(user.getName());
-            userByAccountId.setToken(user.getToken());
-            userMapper.update(userByAccountId);
-
+            User userSelect=users.get(0);
+            userSelect.setGmtmodified(System.currentTimeMillis());
+            userSelect.setAvatarUrl(user.getAvatarUrl());
+            userSelect.setName(user.getName());
+            userSelect.setToken(user.getToken());
+            userMapper.updateByPrimaryKey(userSelect);
         }
     }
 }

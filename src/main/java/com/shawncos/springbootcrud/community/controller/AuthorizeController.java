@@ -5,17 +5,20 @@ import com.shawncos.springbootcrud.community.dto.AccessTokenDTO;
 import com.shawncos.springbootcrud.community.dto.GitHubUser;
 import com.shawncos.springbootcrud.community.mapper.UserMapper;
 import com.shawncos.springbootcrud.community.model.User;
+import com.shawncos.springbootcrud.community.model.UserExample;
 import com.shawncos.springbootcrud.community.provider.GitHubProvider;
 import com.shawncos.springbootcrud.community.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 import java.util.UUID;
 
 @Controller
@@ -51,17 +54,20 @@ public class AuthorizeController {
         String accessToken = gitHubProvider.getAccessToken(accessTokenDTO);
         GitHubUser gitHubUser = gitHubProvider.getUser(accessToken);
         if (gitHubUser != null) {
-            User user = userMapper.getUserByAccountId(gitHubUser.getId());
-            if (user != null) {
-                Cookie cookie = new Cookie("token", user.getToken());
+            UserExample example=new UserExample();
+            example.createCriteria().andAccountidNotEqualTo(gitHubUser.getId());
+            List<User> users= userMapper.selectByExample(example);
+            if (!CollectionUtils.isEmpty(users)) {
+                Cookie cookie = new Cookie("token", users.get(0).getToken());
                 response.addCookie(cookie);
             } else {
+                User user=new User();
                 user = new User();
-                user.setAccountId(String.valueOf(gitHubUser.getId()));
+                user.setAccountid(String.valueOf(gitHubUser.getId()));
                 user.setName(gitHubUser.getName());
                 user.setToken(UUID.randomUUID().toString());
-                user.setGmtCreate(System.currentTimeMillis());
-                user.setGmtModified(user.getGmtCreate());
+                user.setGmtcreate(System.currentTimeMillis());
+                user.setGmtmodified(user.getGmtcreate());
                 user.setAvatarUrl(gitHubUser.getAvatarUrl());
                 userService.createOrUpdate(user);
                 Cookie cookie = new Cookie("token", user.getToken());

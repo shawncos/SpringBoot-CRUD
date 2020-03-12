@@ -2,14 +2,18 @@ package com.shawncos.springbootcrud.community.interceptor;
 
 import com.shawncos.springbootcrud.community.mapper.UserMapper;
 import com.shawncos.springbootcrud.community.model.User;
+import com.shawncos.springbootcrud.community.model.UserExample;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.jws.soap.SOAPBinding;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 
 @Service
@@ -24,9 +28,13 @@ public class SessionIncerptor implements HandlerInterceptor {
         if (cookies != null) {
             for (Cookie cookie : cookies) {
                 if ("token".equals(cookie.getName())) {
-                    User user = userMapper.getUserByToken(cookie.getValue());
-                    if (user != null) {
-                        request.getSession().setAttribute("user", user);
+                    String token=cookie.getValue();
+                    UserExample example=new UserExample();
+                    example.createCriteria().andTokenEqualTo(token);
+                    List<User> users = userMapper.selectByExample(example);
+
+                    if (!CollectionUtils.isEmpty(users)) {
+                        request.getSession().setAttribute("user", users.get(0));
                     }
                     break;
                 }
